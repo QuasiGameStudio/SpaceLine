@@ -1,0 +1,21 @@
+fileFormatVersion: 2
+guid: ce1ddea746d679442af06dde646a6c63
+timeCreated: 1509811837
+licenseType: Free
+TrueTypeFontImporter:
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontName: RotisSansSerif
+  fontNames:
+  - RotisSansSerif
+  fallbackFontReferences: []
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
