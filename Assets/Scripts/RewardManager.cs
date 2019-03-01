@@ -35,7 +35,6 @@ public class RewardManager : Singleton<RewardManager> {
 		}
 
 	}
-
 	public void UseBoostReward(){
 		if (GameData.Instance.GetRewardIsAvailable ("Boost") > 0) {					
 			GameData.Instance.SetRewardIsAvailable ("Boost", 0);

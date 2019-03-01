@@ -6,8 +6,6 @@ using UnityEngine.Advertisements;
 
 public class AdsManager : Singleton<AdsManager> {
 
-
-
 	void Start(){
 		
 	}
