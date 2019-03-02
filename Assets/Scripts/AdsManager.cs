@@ -6,8 +6,16 @@ using UnityEngine.Advertisements;
 
 public class AdsManager : Singleton<AdsManager> {
 
-	void Start(){
+	void Awake(){
 		
+		
+	}
+	void Start(){
+		//can Request Reward Video?
+		if (GameData.Instance.GetAdsIsEnable ("Boost") > 0 && GameData.Instance.GetRewardIsAvailable("Boost") < 1 && !AdMobManager.Instance.GetLastAdsIsSuccessToLoaded()) {
+			AdMobManager.Instance.RequestRewardBasedVideo(0);
+			Debug.Log("Requestinggggg");
+		}
 	}
 
 	public void RefuseBoostAds(){
@@ -41,10 +49,13 @@ public class AdsManager : Singleton<AdsManager> {
 	}
 
 	public bool CheckBoostAdsIsEnable(){
-		if (GameData.Instance.GetAdsIsEnable ("Boost") > 0 && GameData.Instance.GetRewardIsAvailable("Boost") < 1 && UnityAds.Instance.GetAdvertisementsIsReady ()) {
-			GUIManager.Instance.GetBoostAdsOption().SetActive (UnityAds.Instance.GetAdvertisementsIsReady ());
+		
+		if (GameData.Instance.GetAdsIsEnable ("Boost") > 0 && GameData.Instance.GetRewardIsAvailable("Boost") < 1 && AdMobManager.Instance.GetLastAdsIsSuccessToLoaded()) {			
+			Debug.Log("AAAAAAAAAAAAAAAAAAAAA");
+			GUIManager.Instance.GetBoostAdsOption().SetActive (false);
 			return true;
 		} else {
+			
 			RefillBoostAds ();
 			return false;
 		}

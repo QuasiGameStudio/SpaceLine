@@ -242,7 +242,7 @@ public class Player : Singleton<Player> {
 
 	void SpeedAdding(){
 		speed += 0.001f;
-		Debug.Log ("Speed: " + speed);
+		// Debug.Log ("Speed: " + speed);
 	}
 
 	void DecreaseSpeed(){

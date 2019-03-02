@@ -15,7 +15,7 @@ public class AdMobManager : Singleton<AdMobManager> {
 	#region
 // #if GOOGLE_MOBILE_ADS
 	
-	bool testingMode = false;
+	bool testingMode = true;
 
 	BannerView bannerView;
 	InterstitialAd interstitial;
@@ -30,7 +30,7 @@ public class AdMobManager : Singleton<AdMobManager> {
 // #endif
 
 // #if GOOGLE_MOBILE_ADS
-	private string appId = "ca-app-pub-3204981671781860~3979982505";	
+	private string appId = "ca-app-pub-3204981671781860~7676776241";	
 
 	//original ads id
 	private string[] bannerIds = new string[] {
@@ -57,18 +57,18 @@ public class AdMobManager : Singleton<AdMobManager> {
 
 	void Awake(){
 
-		DontDestroyOnLoad (this);
+		
 					
 // #if GOOGLE_MOBILE_ADS
 		MobileAds.Initialize(appId);
 // #endif
-
 		rewardBasedVideo = RewardBasedVideoAd.Instance;
 
+	}
+
+	void Start(){
 		
-
-		Reset();	
-
+		
 	}
 
 	public void Reset(){
@@ -98,8 +98,7 @@ public class AdMobManager : Singleton<AdMobManager> {
 		if(testingMode)
 			requestRewardVideo = new AdRequest.Builder().AddTestDevice(testDeviceId).Build();
 		else
-			requestRewardVideo = new AdRequest.Builder().Build();
-        
+			requestRewardVideo = new AdRequest.Builder().Build();        
 
 		// Called when an ad request has successfully loaded.
         rewardBasedVideo.OnAdLoaded += HandleRewardBasedVideoLoaded;
@@ -171,14 +170,15 @@ public class AdMobManager : Singleton<AdMobManager> {
 
 	public void HandleRewardBasedVideoLoaded(object sender, EventArgs args)
     {
-        MonoBehaviour.print("HandleRewardBasedVideoLoaded event received");
+        lastAdsIsSuccessToLoaded = true;
+		
     }
 
     public void HandleRewardBasedVideoFailedToLoad(object sender, AdFailedToLoadEventArgs args)
     {
-        MonoBehaviour.print(
-            "HandleRewardBasedVideoFailedToLoad event received with message: "
-                             + args.Message);
+        lastAdsIsSuccessToLoaded = false;
+		
+
     }
 
     public void HandleRewardBasedVideoClosed(object sender, EventArgs args)
@@ -188,11 +188,8 @@ public class AdMobManager : Singleton<AdMobManager> {
 
     public void HandleRewardBasedVideoRewarded(object sender, Reward args)
     {
-        string type = args.Type;
-        double amount = args.Amount;
-        MonoBehaviour.print(
-            "HandleRewardBasedVideoRewarded event received for "
-                        + amount.ToString() + " " + type);
+        //Debug.Log("Video completed - Offer a reward to the player");
+		RewardManager.Instance.GiveReward();
     }
 
 
